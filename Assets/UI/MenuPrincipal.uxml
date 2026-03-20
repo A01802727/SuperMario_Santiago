@@ -1,11 +1,19 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/MenuPrincipal.uss?fileID=7433441132597879392&amp;guid=292048e1b6c769a47b73a3a2406eecb7&amp;type=3#MenuPrincipal"/>
-    <ui:VisualElement name="Menu" style="flex-grow: 1;">
-        <ui:Label text="Tarea Unity" name="Titulo" style="font-size: 95px; align-self: center; border-top-width: 0; border-right-width: 500px; border-bottom-width: 0; border-left-width: 500px;"/>
-        <ui:VisualElement name="Botones" class="menu boton" style="flex-grow: 1;">
+    <ui:VisualElement name="Menu" style="flex-grow: 1; display: none;">
+        <ui:Label text="Tarea Unity" name="Titulo" style="font-size: 95px; align-self: center; border-top-width: 0; border-right-width: 500px; border-bottom-width: 0; border-left-width: 500px; color: rgb(255, 255, 255); position: absolute; top: 93px; left: 188px; background-color: rgba(107, 107, 107, 0.48);"/>
+        <ui:Label text="Santiago Abraham Rios Palacios A01802727" name="Identificar" style="font-size: 50px; align-self: flex-end; top: 985px; color: rgb(255, 255, 255); position: absolute; left: 862px;"/>
+        <ui:VisualElement name="Botones" class="menu boton" style="justify-content: space-around; align-items: center; height: 672px; width: 1058px; position: absolute; top: 272px; left: auto; margin-bottom: 0; margin-top: 0; background-color: rgba(124, 124, 124, 0.48);">
             <ui:Button text="Jugar" name="Jugar" class="boton-juego"/>
             <ui:Button text="Ayuda" name="Ayuda" class="boton-juego"/>
             <ui:Button text="Creditos" name="Creditos" class="boton-juego"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="MenuAyuda" style="flex-grow: 1; display: flex;">
+        <ui:Label text="Tarea Unity" name="Titulo" style="font-size: 95px; align-self: center; border-top-width: 0; border-right-width: 500px; border-bottom-width: 0; border-left-width: 500px; color: rgb(255, 255, 255); position: absolute; top: 93px; left: 188px; background-color: rgba(107, 107, 107, 0.48);"/>
+        <ui:Label text="Santiago Abraham Rios Palacios A01802727" name="Identificar" style="font-size: 50px; align-self: flex-end; top: 985px; color: rgb(255, 255, 255); position: absolute; left: 862px;"/>
+        <ui:VisualElement name="TextoAyuda" class="menu boton" style="justify-content: space-around; align-items: center; height: 672px; width: 1058px; position: absolute; top: 272px; left: auto; margin-bottom: 0; margin-top: 0; background-color: rgba(124, 124, 124, 0.48);">
+            <ui:Label text="What is Lorem Ipsum?&#10;&#10;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages..." style="font-size: 40px; color: rgb(255, 255, 255); white-space: normal; -unity-text-align: upper-center; height: 671px; width: 1058px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
