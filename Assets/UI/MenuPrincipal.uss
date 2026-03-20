@@ -1,0 +1,16 @@
+:root {
+}
+
+.menu {
+}
+
+.boton {
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-juego {
+    width: 300px;
+    height: 100px;
+    font-size: 50px;
+}
