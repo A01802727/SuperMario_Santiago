@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     private VisualElement root;
-
     private VisualElement menu;
     private VisualElement menuAyuda;
     private VisualElement menuCreditos;
@@ -13,12 +12,14 @@ public class MenuController : MonoBehaviour
     private Label creditosLabel;
     private VisualElement creditosContainer;
 
-    public float scrollSpeed = 30f; // Velocidad más cinematográfica
+    public float scrollSpeed = 50f; 
+    private float currentMargin; // Usaremos márgenes para el movimiento
 
-    void Start()
+    void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
+        // Tus nombres exactos
         menu = root.Q<VisualElement>("Menu");
         menuAyuda = root.Q<VisualElement>("MenuAyuda");
         menuCreditos = root.Q<VisualElement>("MenuCreditos");
@@ -26,6 +27,7 @@ public class MenuController : MonoBehaviour
         Button jugar = root.Q<Button>("Jugar");
         Button ayuda = root.Q<Button>("Ayuda");
         Button creditos = root.Q<Button>("Creditos");
+        Button closeGame = root.Q<Button>("CloseGame");
 
         Button closeAyuda = menuAyuda.Q<Button>("CloseBoton");
         Button closeCreditos = menuCreditos.Q<Button>("CloseBoton");
@@ -33,64 +35,63 @@ public class MenuController : MonoBehaviour
         creditosContainer = menuCreditos.Q<VisualElement>("CreditosContainer");
         creditosLabel = menuCreditos.Q<Label>("Creditos");
 
-        // Para poder moverlo libremente
-        creditosLabel.style.position = Position.Absolute;
+        // --- LÓGICA DE BOTONES ---
 
-        // BOTÓN JUGAR
         jugar.clicked += () => SceneManager.LoadScene("SampleScene");
 
-        // BOTÓN AYUDA
-        ayuda.clicked += () =>
-        {
+        ayuda.clicked += () => {
             menu.style.display = DisplayStyle.None;
             menuAyuda.style.display = DisplayStyle.Flex;
         };
 
-        // BOTÓN CRÉDITOS
-        creditos.clicked += () =>
-        {
+        creditos.clicked += () => {
             menu.style.display = DisplayStyle.None;
             menuCreditos.style.display = DisplayStyle.Flex;
-
-            // IMPORTANTE: iniciar abajo del contenedor (como créditos reales)
-            creditosLabel.style.top = creditosContainer.resolvedStyle.height;
+            
+            // Iniciamos el margen arriba igual a la altura del contenedor para que aparezca desde abajo
+            currentMargin = creditosContainer.resolvedStyle.height;
+            creditosLabel.style.marginTop = currentMargin;
         };
 
-        // CERRAR AYUDA
-        closeAyuda.clicked += () =>
-        {
-            menuAyuda.style.display = DisplayStyle.None;
-            menu.style.display = DisplayStyle.Flex;
-        };
+        if (closeGame != null) {
+            closeGame.clicked += () => {
+                #if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+                #else
+                    Application.Quit();
+                #endif
+            };
+        }
 
-        // CERRAR CRÉDITOS
-        closeCreditos.clicked += () =>
-        {
-            menuCreditos.style.display = DisplayStyle.None;
-            menu.style.display = DisplayStyle.Flex;
-        };
+        closeAyuda.clicked += () => VolverAlMenu(menuAyuda);
+        closeCreditos.clicked += () => VolverAlMenu(menuCreditos);
 
-        // Ocultar menús secundarios al inicio
         menuAyuda.style.display = DisplayStyle.None;
         menuCreditos.style.display = DisplayStyle.None;
+    }
+
+    void VolverAlMenu(VisualElement ventanaActual)
+    {
+        ventanaActual.style.display = DisplayStyle.None;
+        menu.style.display = DisplayStyle.Flex;
     }
 
     void Update()
     {
         if (menuCreditos != null && menuCreditos.style.display == DisplayStyle.Flex)
         {
-            float currentTop = creditosLabel.resolvedStyle.top;
+            // Restamos al margen para que el texto "suba"
+            currentMargin -= scrollSpeed * Time.deltaTime;
 
-            // Movimiento hacia arriba
-            currentTop -= scrollSpeed * Time.deltaTime;
-
-            creditosLabel.style.top = currentTop;
-
-            // Cuando todo el texto salió por arriba, reinicia abajo
-            if (currentTop + creditosLabel.resolvedStyle.height < 0)
+            // Si el margen es menor a la altura negativa del texto, reiniciamos
+            // (Ya salió por arriba)
+            if (currentMargin < -creditosLabel.layout.height)
             {
-                creditosLabel.style.top = creditosContainer.resolvedStyle.height;
+                currentMargin = creditosContainer.layout.height;
             }
+
+            // Aplicamos el margen
+            creditosLabel.style.marginTop = currentMargin;
         }
     }
 }
