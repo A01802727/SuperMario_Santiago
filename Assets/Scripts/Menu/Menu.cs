@@ -13,13 +13,12 @@ public class MenuController : MonoBehaviour
     private VisualElement creditosContainer;
 
     public float scrollSpeed = 50f; 
-    private float currentMargin; // Usaremos márgenes para el movimiento
+    private float currentMargin;
 
     void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        // Tus nombres exactos
         menu = root.Q<VisualElement>("Menu");
         menuAyuda = root.Q<VisualElement>("MenuAyuda");
         menuCreditos = root.Q<VisualElement>("MenuCreditos");
@@ -35,7 +34,6 @@ public class MenuController : MonoBehaviour
         creditosContainer = menuCreditos.Q<VisualElement>("CreditosContainer");
         creditosLabel = menuCreditos.Q<Label>("Creditos");
 
-        // --- LÓGICA DE BOTONES ---
 
         jugar.clicked += () => SceneManager.LoadScene("SampleScene");
 
@@ -48,8 +46,11 @@ public class MenuController : MonoBehaviour
             menu.style.display = DisplayStyle.None;
             menuCreditos.style.display = DisplayStyle.Flex;
             
-            // Iniciamos el margen arriba igual a la altura del contenedor para que aparezca desde abajo
-            currentMargin = creditosContainer.resolvedStyle.height;
+        
+            float alturaContenedor = creditosContainer.layout.height;
+            if (alturaContenedor <= 0) alturaContenedor = Screen.height; 
+
+            currentMargin = alturaContenedor;
             creditosLabel.style.marginTop = currentMargin;
         };
 
@@ -78,19 +79,15 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if (menuCreditos != null && menuCreditos.style.display == DisplayStyle.Flex)
+        if (menuCreditos != null && menuCreditos.resolvedStyle.display == DisplayStyle.Flex)
         {
-            // Restamos al margen para que el texto "suba"
             currentMargin -= scrollSpeed * Time.deltaTime;
 
-            // Si el margen es menor a la altura negativa del texto, reiniciamos
-            // (Ya salió por arriba)
             if (currentMargin < -creditosLabel.layout.height)
             {
                 currentMargin = creditosContainer.layout.height;
             }
 
-            // Aplicamos el margen
             creditosLabel.style.marginTop = currentMargin;
         }
     }
