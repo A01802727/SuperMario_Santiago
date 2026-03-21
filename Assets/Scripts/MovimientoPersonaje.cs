@@ -1,3 +1,4 @@
+//Santiago Abraham Rios Palacios
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +11,7 @@ public class MoverConInputAction : MonoBehaviour
     private InputAction accionSaltar; //para saltar con espacio
 
     private float velocidadX = 7f;
-    private float velocidadY = 9f;
+    private float velocidadY = 8f;
     private bool enSuelo = true; //para saber si el personaje esta en el suelo o no, para que no pueda saltar en el aire
 
     private Rigidbody2D rb; //Para saltar y caminar horizontal

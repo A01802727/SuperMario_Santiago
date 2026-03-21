@@ -1,3 +1,4 @@
+//Santiago Abraham Rios Palacios
 using UnityEngine;
 
 public class EnemigoAccionCompleto : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemigoAccionCompleto : MonoBehaviour
     
     private SpriteRenderer spriteRenderer;
 
+    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -18,6 +20,7 @@ public class EnemigoAccionCompleto : MonoBehaviour
 
     void Update()
     {
+        //Actualizamos cornometro para el flip
       
         cronometro -= Time.deltaTime;
 
@@ -33,6 +36,7 @@ public class EnemigoAccionCompleto : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Verificar si el enemigo colisiona con el jugador
        
         if (collision.gameObject.CompareTag("Player"))
         {

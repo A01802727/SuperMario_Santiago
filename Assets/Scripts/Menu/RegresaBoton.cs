@@ -1,3 +1,4 @@
+//Santiago Abraham Rios Palacios
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,18 +10,11 @@ public class regresa : MonoBehaviour
     private Button regresar;
     private void OnEnable()
     {
+        //Obtener el componente UIDocument del objeto al que está asignado este script
         menu = GetComponent<UIDocument>();
         var root = menu.rootVisualElement;
 
         regresar = root.Q<Button>("regresar");
-        if (regresar == null)
-{
-    Debug.LogError("No se encontró el botón");
-}
-else
-{
-    Debug.Log("Botón encontrado");
-}
 
         //Callback
         regresar.clicked += CerrarEscena;

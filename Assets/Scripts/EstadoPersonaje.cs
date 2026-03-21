@@ -1,3 +1,4 @@
+//Santiago Abraham Rios Palacios
 using System;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class EstadoPersonaje : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        // Verificar si el personaje colisiona con el suelo
         estaEnPiso = true;
         print(estaEnPiso);
     }

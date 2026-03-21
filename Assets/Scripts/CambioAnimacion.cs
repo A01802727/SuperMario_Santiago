@@ -1,3 +1,4 @@
+//Santiago Abraham Rios Palacios
 using System;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class CambioAnimacion : MonoBehaviour
 
     private SpriteRenderer sr; //referencia al componente de renderizado del personaje para cambiar la direccion del sprite
     private EstadoPersonaje estado;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
